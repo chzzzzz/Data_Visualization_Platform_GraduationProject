@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="static/js/echarts.min.js"></script>
+    <script src="static/js/Chart.min.js"></script>
+    <script src="static/js/chart.js"></script>
+
+  <title>历史记录结果</title>
+  <!-- base:css -->
+  <link rel="stylesheet" href="static/css/typicons.css">
+  <link rel="stylesheet" href="static/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="static/css/style.css">
+  <!-- endinject -->
+
+
+
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center" >
+          <div style="width: 157px;height:42px;padding-right: 107px" class="navbar-brand brand-logo"  ><img src="static/picture/logo-mini.svg" alt="logo" ></div>
+{#          <a class="navbar-brand brand-logo-mini" href=""><img src="static/picture/logo-mini.svg" alt="logo"></a>#}
+          <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">
+            <span class="typcn typcn-th-menu"></span>
+          </button>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+          <ul class="navbar-nav mr-lg-2">
+{#            <li class="nav-item  d-none d-lg-flex">#}
+{#              <a class="nav-link" href="#">#}
+{#                Calendar#}
+{#              </a>#}
+{#            </li>#}
+            <li class="nav-item  d-none d-lg-flex">
+              <a class="nav-link active" href="#">
+                数据显示
+              </a>
+            </li>
+            <li class="nav-item  d-none d-lg-flex">
+              <a class="nav-link" href="/my_home">
+                我的中心
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item d-none d-lg-flex  mr-2">
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
+                <i class="typcn typcn-user-outline mr-0"></i>
+                <span class="nav-profile-name">{{ name }}</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                <a class="dropdown-item" href="/my_home">
+                <i class="typcn typcn-cog text-primary"></i>
+                我的中心
+                </a>
+                <a class="dropdown-item" href="/loginOut">
+                <i class="typcn typcn-power text-primary"></i>
+                退出登录
+                </a>
+              </div>
+            </li>
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="typcn typcn-th-menu"></span>
+          </button>
+        </div>
+      </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_settings-panel.html -->
+        <div class="theme-setting-wrapper">
+          <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+          <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">导航栏颜色</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+              <div class="img-ss rounded-circle bg-light border mr-3"></div>
+              浅色
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+              <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+              深色
+            </div>
+            <p class="settings-heading mt-2">菜单栏颜色</p>
+            <div class="color-tiles mx-0 px-4">
+              <div class="tiles success"></div>
+              <div class="tiles warning"></div>
+              <div class="tiles danger"></div>
+              <div class="tiles primary"></div>
+              <div class="tiles info"></div>
+              <div class="tiles dark"></div>
+              <div class="tiles default border"></div>
+            </div>
+          </div>
+        </div>
+        <!-- partial -->
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <div class="d-flex sidebar-profile">
+              <div class="sidebar-profile-image">
+                <img src="static/picture/face29.png" alt="image">
+                <span class="sidebar-status-indicator"></span>
+              </div>
+              <div class="sidebar-profile-name">
+                <p class="sidebar-name">
+                  {{ name }}
+                </p>
+                <p class="sidebar-designation">
+                  Welcome
+                </p>
+              </div>
+            </div>
+            <p class="sidebar-menu-title">导航栏</p>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/home">
+              <i class="typcn typcn-device-desktop menu-icon"></i>
+              <span class="menu-title">首页 <span class="badge badge-primary ml-3">常用</span></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/fileUpLoad">
+              <i class="typcn typcn-briefcase menu-icon"></i>
+              <span class="menu-title">初步可视化 </span>
+            </a>
+          </li>
+         {# <li class="nav-item">
+            <a class="nav-link"  data-toggle="collapse" href="/fileUpLoad" aria-expanded="false" aria-controls="ui-basic">
+              <i class="typcn typcn-briefcase menu-icon"></i>
+                <span class="menu-title">文件上传</span>
+              <i class="typcn typcn-chevron-right menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="fileUpLoad.html">Buttons</a></li>
+                <li class="nav-item"> <a class="nav-link" href="dropdowns.html">Dropdowns</a></li>
+                <li class="nav-item"> <a class="nav-link" href="typography.html">Typography</a></li>
+              </ul>
+            </div>
+          </li>#}
+{# 训练模型 #}
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="typcn typcn-chart-pie-outline menu-icon"></i>
+              <span class="menu-title">应用模型</span>
+              <i class="typcn typcn-chevron-right menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="/data_ana">模型介绍</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dtw_upload">DTW+KNN模型</a></li>
+                <li class="nav-item"><a class="nav-link" href="/FCN_upload">FCN模型</a></li>
+{#                <li class="nav-item"> <a class="nav-link" href="buttons.html">Buttons</a></li>#}
+{#                <li class="nav-item"> <a class="nav-link" href="dropdowns.html">Dropdowns</a></li>#}
+{#                <li class="nav-item"> <a class="nav-link" href="typography.html">Typography</a></li>#}
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/compare_upload">
+              <i class="typcn typcn-globe-outline menu-icon"></i>
+              <span class="menu-title">分类对比</span>
+{#              <i class="menu-arrow"></i>#}
+            </a>
+{#            <div class="collapse" id="error">#}
+{#              <ul class="nav flex-column sub-menu">#}
+{#                <li class="nav-item"> <a class="nav-link" href="error-404.html"> 404 </a></li>#}
+{#                <li class="nav-item"> <a class="nav-link" href="error-500.html"> 500 </a></li>#}
+{#              </ul>#}
+{#            </div>#}
+          </li>
+
+
+{# 历史文件 #}
+          <li class="nav-item">
+            <a class="nav-link" href="/history">
+              <i class="typcn typcn-document-text menu-icon"></i>
+              <span class="menu-title">历史文件</span>
+            </a>
+          </li>
+{#我的中心#}
+
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="typcn typcn-user-add-outline menu-icon"></i>
+              <span class="menu-title">我的中心</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/my_home"> 我的中心 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="/loginOut"> 退出登录 </a></li>
+              </ul>
+            </div>
+          </li>
+
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">#}
+{#              <i class="typcn typcn-th-small-outline menu-icon"></i>#}
+{#              <span class="menu-title">Tables</span>#}
+{#              <i class="menu-arrow"></i>#}
+{#            </a>#}
+{#            <div class="collapse" id="tables">#}
+{#              <ul class="nav flex-column sub-menu">#}
+{#                <li class="nav-item"> <a class="nav-link" href="basic-table.html">Basic table</a></li>#}
+{#              </ul>#}
+{#            </div>#}
+{#          </li>#}
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">#}
+{#              <i class="typcn typcn-compass menu-icon"></i>#}
+{#              <span class="menu-title">Icons</span>#}
+{#              <i class="menu-arrow"></i>#}
+{#            </a>#}
+{#            <div class="collapse" id="icons">#}
+{#              <ul class="nav flex-column sub-menu">#}
+{#                <li class="nav-item"> <a class="nav-link" href="mdi.html">Mdi icons</a></li>#}
+{#              </ul>#}
+{#            </div>#}
+{#          </li>#}
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+              <div class="col-sm-6">
+              <h3 class="mb-0 font-weight-bold"> 历史结果</h3>
+              <p>光伏发电时间序列数据分类系统</p>
+
+              </div>
+
+          </div>
+          {#饼图  #}
+          <div class="row">
+             <div class="col-lg-8 grid-margin stretch-card" style="left: 0;right: 0; margin: auto;">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">工作状态饼图</h4>
+                  <p class="card-description">百分比为设备处于该工作状态下的时间占比</p>
+                    <div id="pie" style="width: 600px;height:400px;left: 0;right: 0; margin: auto;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+         <div class="row" >
+             <div class="col-lg-12 grid-margin stretch-card" style="left: 0;right: 0; margin: auto;">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">时间标签概率图</h4>
+                  <p class="card-description">折线展示该时段被判定为对应标签的概率，填色代表工作状态</p>
+                    <div id="bar1" style="left:10px;right: 0; margin: auto;width: 1000px;height:500px;" ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+         <div class="row" >
+             <div class="col-lg-12 grid-margin stretch-card" style="left: 0;right: 0; margin: auto;">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">多维平行坐标图</h4>
+                  <p class="card-description">展示分类与输入6维特征的关系</p>
+                    <div id="parallel" style="left:10px;right: 0; margin: auto;width: 1100px;height:600px;" ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+{#        <footer class="footer">#}
+{#            <div class="d-sm-flex justify-content-center justify-content-sm-between">#}
+{#              <span class="text-center text-sm-left d-block d-sm-inline-block">Copyright © <a href="javascript:;" target="_blank">bootstrapdash.com</a> 2020</span>#}
+{##}
+{#            </div>#}
+{#          </footer>#}
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+{#pie  #}
+<script>
+var chartDom = document.getElementById('pie');
+var myChart = echarts.init(chartDom);
+var option;
+
+option = {
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    top: '5%',
+    left: 'center'
+  },
+  color: [`#91cc75`, `#ee6666`, `#fac858`, `#5470c6`],
+  series: [
+    {
+      name: '工作状态分布比较',
+      type: 'pie',
+      radius: ['40%', '70%'],
+      avoidLabelOverlap: false,
+      itemStyle: {
+        borderRadius: 10,
+        borderColor: '#fff',
+        borderWidth: 2
+      },
+      label: {
+        show: false,
+        position: 'center'
+      },
+      emphasis: {
+        label: {
+          show: true,
+          fontSize: 40,
+          fontWeight: 'bold'
+        }
+      },
+      labelLine: {
+        show: false
+      },
+      data: [
+        { value: {{ index_n[0]|tojson }}, name: '正常' },
+        { value: {{ index_n[1]|tojson }}, name: '全部遮挡'},
+        { value: {{ index_n[2]|tojson }}, name: '部分遮挡'},
+        { value: {{ index_n[3]|tojson }}, name: '断路' }
+      ]
+    }
+  ]
+};
+
+option && myChart.setOption(option);
+
+</script>
+{#parallel  #}
+<script>
+var chartDom = document.getElementById('parallel');
+var myChart = echarts.init(chartDom);
+var option;
+
+// Schema:
+// date,AQIindex,PM2.5,PM10,CO,NO2,SO2
+const schema = [
+  { name: 'fz_i', index: 1, text: '负载电流' },
+  { name: 'fz_v', index: 2, text: '负载电压' },
+  { name: 'nb_i', index: 3, text: '逆变电流' },
+  { name: 'nb_v', index: 4, text: '逆变电压' },
+  { name: 'sr_i', index: 5, text: '输入电流' },
+  { name: 'sr_v', index: 6, text: '输入电压' },
+  {#{ name: '等级', index: 7, text: '等级' }#}
+];
+const CATEGORY_DIM_COUNT = 6;
+const GAP = 2;
+const BASE_LEFT = 5;
+const BASE_TOP = 10;
+// const GRID_WIDTH = 220;
+// const GRID_HEIGHT = 220;
+const GRID_WIDTH = (100 - BASE_LEFT - GAP) / CATEGORY_DIM_COUNT - GAP;
+const GRID_HEIGHT = (100 - BASE_TOP - GAP) / CATEGORY_DIM_COUNT - GAP;
+const CATEGORY_DIM = 6;
+//标记的大小
+const SYMBOL_SIZE = 4;
+const p=[['负载V','','','',''],
+        ['逆变I','','','',''],
+        ['逆变V','','','',''],
+        ['输入I','','','',''],
+        ['输入V','','','','']
+        ];
+const q=[['','','','',''],
+        ['','','','',''],
+        ['','','','',''],
+        ['','','','',''],
+        ['负载I','负载V','逆变I','逆变V','输入I']
+        ];
+function retrieveScatterData(data, dimX, dimY) {
+  let result = [];
+  for (let i = 0; i < data.length; i++) {
+    let item = [data[i][dimX], data[i][dimY]];
+    item[CATEGORY_DIM] = data[i][CATEGORY_DIM];
+    result.push(item);
+  }
+  return result;
+}
+function generateGrids() {
+  let index = 0;
+  const grid = [];
+  const xAxis = [];
+  const yAxis = [];
+  const series = [];
+  for (let i = 0; i < CATEGORY_DIM_COUNT; i++) {
+    for (let j = 0; j < CATEGORY_DIM_COUNT; j++) {
+      if (CATEGORY_DIM_COUNT - i + j >= CATEGORY_DIM_COUNT) {
+        continue;
+      }
+      grid.push({
+        left: BASE_LEFT + i * (GRID_WIDTH + GAP) + '%',
+        top: BASE_TOP + j * (GRID_HEIGHT + GAP) + '%',
+        width: GRID_WIDTH + '%',
+        height: GRID_HEIGHT + '%'
+      });
+      xAxis.push({
+        splitNumber: 3,
+        position: 'top',
+        axisLine: {
+          show: j === 0,
+          onZero: false
+        },
+        axisTick: {
+          show: j === 0,
+          inside: true
+        },
+        axisLabel: {
+          show: j === 0
+        },
+        type: 'value',
+        gridIndex: index,
+        scale: true,
+        name:p[i-1][j],
+        nameLocation:'center' ,
+        nameGap:20
+      });
+      yAxis.push({
+        splitNumber: 3,
+        position: 'right',
+        axisLine: {
+          show: i === CATEGORY_DIM_COUNT - 1,
+          onZero: false
+        },
+        axisTick: {
+          show: i === CATEGORY_DIM_COUNT - 1,
+          inside: true
+        },
+        axisLabel: {
+          show: i === CATEGORY_DIM_COUNT - 1
+        },
+        type: 'value',
+        gridIndex: index,
+        scale: true,
+        name:q[i-1][j],
+        nameLocation:'',
+        nameGap:20,
+        nameRotate: 270
+
+      });
+      series.push({
+        type: 'scatter',
+        symbolSize: SYMBOL_SIZE,
+        xAxisIndex: index,
+        yAxisIndex: index,
+        data: retrieveScatterData({{ rawData |tojson}}, i, j)
+      });
+      index++;
+    }
+  }
+  return {
+    grid,
+    xAxis,
+    yAxis,
+    series
+  };
+}
+const gridOption = generateGrids();
+option = {
+  animation: false,
+  brush: {
+    brushLink: 'all',
+    xAxisIndex: gridOption.xAxis.map(function (_, idx) {
+      return idx;
+    }),
+    yAxisIndex: gridOption.yAxis.map(function (_, idx) {
+      return idx;
+    }),
+    inBrush: {
+      opacity: 1
+    }
+  },
+  visualMap: {
+    type: 'piecewise',
+    categories: ['正常', '全部遮挡', '部分遮挡','断路'],
+    dimension: CATEGORY_DIM,
+    orient: 'horizontal',
+    top: 0,
+    left: 'center',
+    inRange: {
+      color: ['#51689b', '#ce5c5c', '#fbc357']
+    },
+    outOfRange: {
+      color: '#ddd'
+    },
+    seriesIndex: gridOption.series.map(function (_, idx) {
+      return idx;
+    })
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  parallelAxis: [
+    { dim: 0, name: schema[0].text },
+    { dim: 1, name: schema[1].text },
+    { dim: 2, name: schema[2].text },
+    { dim: 3, name: schema[3].text },
+    { dim: 4, name: schema[4].text },
+    { dim: 5, name: schema[5].text },
+  ],
+  parallel: {
+    bottom: '5%',
+    left: '2%',
+    height: '30%',
+    width: '55%',
+    parallelAxisDefault: {
+      type: 'value',
+      name: 'AQI指数',
+      nameLocation: 'end',
+      nameGap: 20,
+      splitNumber: 3,
+      nameTextStyle: {
+        fontSize: 14
+      },
+      axisLine: {
+        lineStyle: {
+          color: '#555'
+        }
+      },
+      axisTick: {
+        lineStyle: {
+          color: '#555'
+        }
+      },
+      splitLine: {
+        show: false
+      },
+      axisLabel: {
+        color: '#555'
+      },
+      min: 'dataMin',
+      max:  'dataMax'
+    }
+  },
+  xAxis: gridOption.xAxis,
+  yAxis: gridOption.yAxis,
+  grid: gridOption.grid,
+  series: [
+    {
+      name: 'parallel',
+      type: 'parallel',
+      smooth: true,
+      lineStyle: {
+        width: 1,
+        opacity: 0.3
+      },
+      data: {{ rawData |tojson}}
+    },
+    ...gridOption.series
+  ]
+};
+
+option && myChart.setOption(option);
+
+</script>
+{# barline #}
+<script>
+var chartDom = document.getElementById('bar1');
+var myChart = echarts.init(chartDom);
+var option;
+const markColor = [`#91cc75`, `#ee6666`, `#fac858`, `#5470c6`,`#5470c6`]; // 背景色块配色
+const names = ['正常','完全遮挡','部分遮挡','断路'];
+let testData = [];
+let dic={{dic_list|tojson}};
+{#v是dic中value，idx为下标#}
+dic.forEach((v,idx)=>{
+    testData.push({
+        range:[dic[idx]['start'],dic[idx]['end']],
+        color:markColor[dic[idx]['label']-1],
+        name:names[dic[idx]['label']-1]
+    })
+    }
+);
+{#for(var i=0;i< dic.length;i++ ){#}
+{#    testData.push({#}
+{#        range:[dic[i]['start'],dic[i]['end']],#}
+{#        color:markColor[dic[i]['label']-1]#}
+{#    });#}
+{# }#}
+option = {
+  title: {
+    {#  text: 'Distribution of Electricity',#}
+    {#subtext: 'Fake Data'#}
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'cross'
+    }
+  },
+  {#legend:{#}
+  {#    data:['正常','全部遮挡','部分遮挡','断路'],#}
+  {#    color:[ [`#91cc75`, `#ee6666`, `#fac858`, `#5470c6`,`#5470c6`]],#}
+  {#    icon:'rect'#}
+  {#    opacity:0.56#}
+  {#  },#}
+  toolbox: {
+    show: true,
+    feature: {
+      saveAsImage: {}
+    }
+  },
+  xAxis: {
+    type: 'category',
+    boundaryGap: false,
+    // prettier-ignore
+    data : {{ times|tojson }}
+  },
+  yAxis: {
+    type: 'value',
+    axisLabel: {
+      formatter: '{value}'
+    },
+    axisPointer: {
+      snap: true
+    }
+  },
+  visualMap: {
+    show: false,
+    dimension: 0,
+    pieces: [
+      {
+        lte: 6,
+        color: 'green'
+      },
+      {
+        gt: 6,
+        lte: 8,
+        color: 'green'
+      },
+      {
+        gt: 8,
+        lte: 14,
+        color: 'green'
+      },
+      {
+        gt: 14,
+        lte: 17,
+        color: 'green'
+      },
+      {
+        gt: 17,
+        color: 'green'
+      }
+    ]
+  },
+  series: [
+    {
+      type: 'line',
+      smooth: true,
+      data: {{ pre_proba|tojson }},
+      markArea: {
+        itemStyle: {
+          color: 'rgba(255, 173, 177, 0.4)'
+        },
+          legend:['正常','完全遮挡','部分遮挡','断路'],
+          data: testData.map(cfg =>
+          [ // 包含色块在x轴起止点的配置数组
+            { name:cfg.name,
+              xAxis: cfg.range[0],
+              itemStyle: { // 色块配置
+                color: cfg.color,
+                opacity: 0.56
+              }
+            },
+            {
+              xAxis: cfg.range[1]
+            }
+          ]
+        )
+       }
+    }
+  ]
+};
+
+option && myChart.setOption(option);
+
+</script>
+
+  <!-- container-scroller -->
+  <!-- base:js -->
+
+  <script src="static/js/vendor.bundle.base.js"></script>
+
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="static/js/off-canvas.js"></script>
+  <script src="static/js/hoverable-collapse.js"></script>
+  <script src="static/js/template.js"></script>
+  <script src="static/js/settings.js"></script>
+  <script src="static/js/todolist.js"></script>
+  <script src="static/js/linechart.js"></script>
+  <!-- endinject -->
+</body>
+
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>CelestialUI Admin</title>
+  <!-- base:css -->
+  <link rel="stylesheet" href="static/css/typicons.css">
+  <link rel="stylesheet" href="static/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="static/css/select2.min.css">
+  <link rel="stylesheet" href="static/css/select2-bootstrap.min.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="static/css/style.css">
+  <!-- endinject -->
+
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center" >
+          <div style="width: 157px;height:42px;padding-right: 107px" class="navbar-brand brand-logo"  ><img src="static/picture/logo-mini.svg" alt="logo" ></div>
+{#          <a class="navbar-brand brand-logo-mini" href=""><img src="static/picture/logo-mini.svg" alt="logo"></a>#}
+          <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">
+            <span class="typcn typcn-th-menu"></span>
+          </button>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+          <ul class="navbar-nav mr-lg-2">
+{#            <li class="nav-item  d-none d-lg-flex">#}
+{#              <a class="nav-link" href="#">#}
+{#                Calendar#}
+{#              </a>#}
+{#            </li>#}
+            <li class="nav-item  d-none d-lg-flex">
+              <a class="nav-link active" href="/home">
+                数据显示
+              </a>
+            </li>
+            <li class="nav-item  d-none d-lg-flex">
+              <a class="nav-link" href="/my_home">
+                我的中心
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item d-none d-lg-flex  mr-2">
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
+                <i class="typcn typcn-user-outline mr-0"></i>
+                <span class="nav-profile-name">{{ name }}</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                <a class="dropdown-item" href="/my_home">
+                <i class="typcn typcn-cog text-primary"></i>
+                我的中心
+                </a>
+                <a class="dropdown-item" href="/loginOut">
+                <i class="typcn typcn-power text-primary"></i>
+                退出登录
+                </a>
+              </div>
+            </li>
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="typcn typcn-th-menu"></span>
+          </button>
+        </div>
+      </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_settings-panel.html -->
+        <div class="theme-setting-wrapper">
+          <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+          <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">导航栏颜色</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+              <div class="img-ss rounded-circle bg-light border mr-3"></div>
+              浅色
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+              <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+              深色
+            </div>
+            <p class="settings-heading mt-2">菜单栏颜色</p>
+            <div class="color-tiles mx-0 px-4">
+              <div class="tiles success"></div>
+              <div class="tiles warning"></div>
+              <div class="tiles danger"></div>
+              <div class="tiles primary"></div>
+              <div class="tiles info"></div>
+              <div class="tiles dark"></div>
+              <div class="tiles default border"></div>
+            </div>
+          </div>
+        </div>
+        <!-- partial -->
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <div class="d-flex sidebar-profile">
+              <div class="sidebar-profile-image">
+                <img src="static/picture/face29.png" alt="image">
+                <span class="sidebar-status-indicator"></span>
+              </div>
+              <div class="sidebar-profile-name">
+                <p class="sidebar-name">
+                  {{ name }}
+                </p>
+                <p class="sidebar-designation">
+                  Welcome
+                </p>
+              </div>
+            </div>
+            <p class="sidebar-menu-title">导航栏</p>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/home">
+              <i class="typcn typcn-device-desktop menu-icon"></i>
+              <span class="menu-title">首页 <span class="badge badge-primary ml-3">常用</span></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/fileUpLoad">
+              <i class="typcn typcn-briefcase menu-icon"></i>
+              <span class="menu-title">初步可视化 </span>
+            </a>
+          </li>
+         {# <li class="nav-item">
+            <a class="nav-link"  data-toggle="collapse" href="/fileUpLoad" aria-expanded="false" aria-controls="ui-basic">
+              <i class="typcn typcn-briefcase menu-icon"></i>
+                <span class="menu-title">文件上传</span>
+              <i class="typcn typcn-chevron-right menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="fileUpLoad.html">Buttons</a></li>
+                <li class="nav-item"> <a class="nav-link" href="dropdowns.html">Dropdowns</a></li>
+                <li class="nav-item"> <a class="nav-link" href="typography.html">Typography</a></li>
+              </ul>
+            </div>
+          </li>#}
+{# 训练模型 #}
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="typcn typcn-chart-pie-outline menu-icon"></i>
+              <span class="menu-title">应用模型</span>
+              <i class="typcn typcn-chevron-right menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="/data_ana">模型介绍</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dtw_upload">DTW+KNN模型</a></li>
+                <li class="nav-item"><a class="nav-link" href="/FCN_upload">FCN模型</a></li>
+{#                <li class="nav-item"> <a class="nav-link" href="buttons.html">Buttons</a></li>#}
+{#                <li class="nav-item"> <a class="nav-link" href="dropdowns.html">Dropdowns</a></li>#}
+{#                <li class="nav-item"> <a class="nav-link" href="typography.html">Typography</a></li>#}
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/compare_upload">
+              <i class="typcn typcn-globe-outline menu-icon"></i>
+              <span class="menu-title">分类对比</span>
+{#              <i class="menu-arrow"></i>#}
+            </a>
+{#            <div class="collapse" id="error">#}
+{#              <ul class="nav flex-column sub-menu">#}
+{#                <li class="nav-item"> <a class="nav-link" href="error-404.html"> 404 </a></li>#}
+{#                <li class="nav-item"> <a class="nav-link" href="error-500.html"> 500 </a></li>#}
+{#              </ul>#}
+{#            </div>#}
+          </li>
+
+
+{# 历史文件 #}
+          <li class="nav-item">
+            <a class="nav-link" href="/history">
+              <i class="typcn typcn-document-text menu-icon"></i>
+              <span class="menu-title">历史文件</span>
+            </a>
+          </li>
+{#我的中心#}
+
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="typcn typcn-user-add-outline menu-icon"></i>
+              <span class="menu-title">我的中心</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/my_home"> 我的中心 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="/loginOut"> 退出登录 </a></li>
+              </ul>
+            </div>
+          </li>
+
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">#}
+{#              <i class="typcn typcn-th-small-outline menu-icon"></i>#}
+{#              <span class="menu-title">Tables</span>#}
+{#              <i class="menu-arrow"></i>#}
+{#            </a>#}
+{#            <div class="collapse" id="tables">#}
+{#              <ul class="nav flex-column sub-menu">#}
+{#                <li class="nav-item"> <a class="nav-link" href="basic-table.html">Basic table</a></li>#}
+{#              </ul>#}
+{#            </div>#}
+{#          </li>#}
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">#}
+{#              <i class="typcn typcn-compass menu-icon"></i>#}
+{#              <span class="menu-title">Icons</span>#}
+{#              <i class="menu-arrow"></i>#}
+{#            </a>#}
+{#            <div class="collapse" id="icons">#}
+{#              <ul class="nav flex-column sub-menu">#}
+{#                <li class="nav-item"> <a class="nav-link" href="mdi.html">Mdi icons</a></li>#}
+{#              </ul>#}
+{#            </div>#}
+{#          </li>#}
+        </ul>
+      </nav>
+
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">用户信息</h4>
+                  <p class="card-description">
+                    基本信息
+                  </p>
+                  <form class="forms-sample">
+                    <div class="form-group">
+                      <label for="exampleInputUsername1">用户名</label>
+                      <h6 class="card-title">&nbsp;&nbsp;{{ name }}</h6>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">邮箱</label>
+                      <h6 class="card-title">&nbsp;&nbsp;{{ email }}</h6>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">用户类型</label>
+                      <h6 class="card-title">&nbsp;&nbsp;{{ identity }}</h6>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputConfirmPassword1">密码</label>
+                      <h6 class="card-title">&nbsp;&nbsp;{{ password }}</h6>
+                    </div>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">修改密码</h4>
+                  <p class="card-description">
+                    请在下方输入框输入新密码
+                  </p>
+                  <form class="forms-sample" method="post" action="/my_home">
+                    <div class="form-group row">
+                      <label for="exampleInputPassword2" class="col-sm-3 col-form-label">输入新密码</label>
+                      <div class="col-sm-9">
+                        <input type="password" name='new_pass' class="form-control" id="exampleInputPassword2" placeholder="新密码">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">确认新密码</label>
+                      <div class="col-sm-9">
+                        <input type="password" name='new_pass_checked' class="form-control" id="exampleInputConfirmPassword2" placeholder="新密码">
+                      </div>
+                    </div>
+                    <input class="btn btn-primary mr-2" type="submit" value="提交">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- base:js -->
+  <script src="static/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="static/js/off-canvas.js"></script>
+  <script src="static/js/hoverable-collapse.js"></script>
+  <script src="static/js/template.js"></script>
+  <script src="static/js/settings.js"></script>
+  <script src="static/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <script src="static/js/typeahead.bundle.min.js"></script>
+  <script src="static/js/select2.min.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- Custom js for this page-->
+  <script src="static/js/file-upload.js"></script>
+  <script src="static/js/typeahead.js"></script>
+  <script src="static/js/select2.js"></script>
+  <!-- End custom js for this page-->
+</body>
+
+</html>

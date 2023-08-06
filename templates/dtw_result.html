@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="static/js/echarts.min.js"></script>
+    <script src="static/js/Chart.min.js"></script>
+    <script src="static/js/chart.js"></script>
+
+  <title>dtw_knn分析结果</title>
+  <!-- base:css -->
+  <link rel="stylesheet" href="static/css/typicons.css">
+  <link rel="stylesheet" href="static/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="static/css/style.css">
+  <!-- endinject -->
+<script >
+        function show(){
+        //显示div
+         document.getElementById("form").style.display="block";
+        //隐藏
+        //document.getElementByID("form").style.display="none";
+        var obj={
+          re_name:'xxx',
+          main_name:{{ main_name |tojson}}
+          }
+
+         {#document.getElementById("re_name").value = obj.re_name#}
+         document.getElementById("main_name").value = obj.main_name
+         }
+
+         function save(){
+            {#alert(document.getElementById("re_name").value)#}
+         }
+        </script>
+
+
+
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center" >
+          <div style="width: 157px;height:42px;padding-right: 107px" class="navbar-brand brand-logo"  ><img src="static/picture/logo-mini.svg" alt="logo" ></div>
+{#          <a class="navbar-brand brand-logo-mini" href=""><img src="static/picture/logo-mini.svg" alt="logo"></a>#}
+          <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">
+            <span class="typcn typcn-th-menu"></span>
+          </button>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+          <ul class="navbar-nav mr-lg-2">
+{#            <li class="nav-item  d-none d-lg-flex">#}
+{#              <a class="nav-link" href="#">#}
+{#                Calendar#}
+{#              </a>#}
+{#            </li>#}
+            <li class="nav-item  d-none d-lg-flex">
+              <a class="nav-link active" href="#">
+                数据显示
+              </a>
+            </li>
+            <li class="nav-item  d-none d-lg-flex">
+              <a class="nav-link" href="/my_home">
+                我的中心
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item d-none d-lg-flex  mr-2">
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
+                <i class="typcn typcn-user-outline mr-0"></i>
+                <span class="nav-profile-name">{{ name }}</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                <a class="dropdown-item" href="/my_home">
+                <i class="typcn typcn-cog text-primary"></i>
+                我的中心
+                </a>
+                <a class="dropdown-item" href="/loginOut">
+                <i class="typcn typcn-power text-primary"></i>
+                退出登录
+                </a>
+              </div>
+            </li>
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="typcn typcn-th-menu"></span>
+          </button>
+        </div>
+      </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_settings-panel.html -->
+      <div class="theme-setting-wrapper">
+          <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+          <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">导航栏颜色</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+              <div class="img-ss rounded-circle bg-light border mr-3"></div>
+              浅色
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+              <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+              深色
+            </div>
+            <p class="settings-heading mt-2">菜单栏颜色</p>
+            <div class="color-tiles mx-0 px-4">
+              <div class="tiles success"></div>
+              <div class="tiles warning"></div>
+              <div class="tiles danger"></div>
+              <div class="tiles primary"></div>
+              <div class="tiles info"></div>
+              <div class="tiles dark"></div>
+              <div class="tiles default border"></div>
+            </div>
+          </div>
+        </div>
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <div class="d-flex sidebar-profile">
+              <div class="sidebar-profile-image">
+                <img src="static/picture/face29.png" alt="image">
+                <span class="sidebar-status-indicator"></span>
+              </div>
+              <div class="sidebar-profile-name">
+                <p class="sidebar-name">
+                  {{ name }}
+                </p>
+                <p class="sidebar-designation">
+                  Welcome
+                </p>
+              </div>
+            </div>
+            <p class="sidebar-menu-title">导航栏</p>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/home">
+              <i class="typcn typcn-device-desktop menu-icon"></i>
+              <span class="menu-title">首页 <span class="badge badge-primary ml-3">常用</span></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/fileUpLoad">
+              <i class="typcn typcn-briefcase menu-icon"></i>
+              <span class="menu-title">初步可视化 </span>
+            </a>
+          </li>
+         {# <li class="nav-item">
+            <a class="nav-link"  data-toggle="collapse" href="/fileUpLoad" aria-expanded="false" aria-controls="ui-basic">
+              <i class="typcn typcn-briefcase menu-icon"></i>
+                <span class="menu-title">文件上传</span>
+              <i class="typcn typcn-chevron-right menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="fileUpLoad.html">Buttons</a></li>
+                <li class="nav-item"> <a class="nav-link" href="dropdowns.html">Dropdowns</a></li>
+                <li class="nav-item"> <a class="nav-link" href="typography.html">Typography</a></li>
+              </ul>
+            </div>
+          </li>#}
+    {# 训练模型 #}
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="typcn typcn-chart-pie-outline menu-icon"></i>
+              <span class="menu-title">应用模型</span>
+              <i class="typcn typcn-chevron-right menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="/data_ana">模型介绍</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dtw_upload">DTW+KNN模型</a></li>
+                <li class="nav-item"><a class="nav-link" href="/FCN_upload">FCN模型</a></li>
+    {#                <li class="nav-item"> <a class="nav-link" href="buttons.html">Buttons</a></li>#}
+    {#                <li class="nav-item"> <a class="nav-link" href="dropdowns.html">Dropdowns</a></li>#}
+    {#                <li class="nav-item"> <a class="nav-link" href="typography.html">Typography</a></li>#}
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/compare_upload">
+              <i class="typcn typcn-globe-outline menu-icon"></i>
+              <span class="menu-title">分类对比</span>
+    {#              <i class="menu-arrow"></i>#}
+            </a>
+    {#            <div class="collapse" id="error">#}
+    {#              <ul class="nav flex-column sub-menu">#}
+    {#                <li class="nav-item"> <a class="nav-link" href="error-404.html"> 404 </a></li>#}
+    {#                <li class="nav-item"> <a class="nav-link" href="error-500.html"> 500 </a></li>#}
+    {#              </ul>#}
+    {#            </div>#}
+          </li>
+
+
+    {# 历史文件 #}
+          <li class="nav-item">
+            <a class="nav-link" href="/history">
+              <i class="typcn typcn-document-text menu-icon"></i>
+              <span class="menu-title">历史文件</span>
+            </a>
+          </li>
+    {#我的中心#}
+
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="typcn typcn-user-add-outline menu-icon"></i>
+              <span class="menu-title">我的中心</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/my_home"> 我的中心 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="/loginOut"> 退出登录 </a></li>
+              </ul>
+            </div>
+          </li>
+
+    {#          <li class="nav-item">#}
+    {#            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">#}
+    {#              <i class="typcn typcn-th-small-outline menu-icon"></i>#}
+    {#              <span class="menu-title">Tables</span>#}
+    {#              <i class="menu-arrow"></i>#}
+    {#            </a>#}
+    {#            <div class="collapse" id="tables">#}
+    {#              <ul class="nav flex-column sub-menu">#}
+    {#                <li class="nav-item"> <a class="nav-link" href="basic-table.html">Basic table</a></li>#}
+    {#              </ul>#}
+    {#            </div>#}
+    {#          </li>#}
+    {#          <li class="nav-item">#}
+    {#            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">#}
+    {#              <i class="typcn typcn-compass menu-icon"></i>#}
+    {#              <span class="menu-title">Icons</span>#}
+    {#              <i class="menu-arrow"></i>#}
+    {#            </a>#}
+    {#            <div class="collapse" id="icons">#}
+    {#              <ul class="nav flex-column sub-menu">#}
+    {#                <li class="nav-item"> <a class="nav-link" href="mdi.html">Mdi icons</a></li>#}
+    {#              </ul>#}
+    {#            </div>#}
+    {#          </li>#}
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+              <div class="col-sm-6">
+              <h3 class="mb-0 font-weight-bold"> DTW+KNN模型预测</h3>
+                <p>光伏发电时间序列数据分类系统</p>
+              </div>
+              <div class="col-sm-6" >
+                <button onclick="show()" type="button" class="btn btn-primary" style="float:right">保存结果</button>
+                  <form id='form' class="pt-3" method="POST" action="/dtw_result" style="float:right;display:none;">
+                      <div ><span class="font-weight-bold">输入结果标签：</span><input name="re_name" id="re_name"/></div>
+                      <div style="display: none"><p class="font-weight-bold"> main_name：</p><input name="main_name" id="main_name" /></div>
+                      <button style="float:right;" class="btn btn-primary btn-sm">保存</button>
+                  </form>
+              </div>
+          </div>
+
+          {#饼图  #}
+          <div class="row">
+             <div class="col-lg-8 grid-margin stretch-card" style="left: 0;right: 0; margin: auto;">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">工作状态分布饼图</h4>
+                  <p class="card-description">百分比为设备处于该工作状态下的时间占比</p>
+                    <div id="pie" style="width: 600px;height:400px;left: 0;right: 0; margin: auto;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" >
+             <div class="col-lg-12 grid-margin stretch-card" style="left: 0;right: 0; margin: auto;">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">时间标签概率图</h4>
+                  <p class="card-description">折线展示该时段被判定为对应标签的概率，填色代表工作状态</p>
+                    <div id="bar1" style="left:10px;right: 0; margin: auto;width: 1000px;height:500px;" ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" >
+             <div class="col-lg-12 grid-margin stretch-card" style=" left: 0;right: 0; margin: auto; ">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">多维平行坐标图</h4>
+                  <p class="card-description">展示分类与输入6维特征的关系</p>
+                    <div id="parallel" style="left:10px;right: 0; margin: auto;width: 1100px;height:600px;" ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+{#        <footer class="footer">#}
+{#            <div class="d-sm-flex justify-content-center justify-content-sm-between">#}
+{#              <span class="text-center text-sm-left d-block d-sm-inline-block">Copyright © <a href="javascript:;" target="_blank">bootstrapdash.com</a> 2020</span>#}
+{##}
+{#            </div>#}
+{#          </footer>#}
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+{#js中的const，let不能重名  #}
+{#pie  #}
+<script>
+var chartDom = document.getElementById('pie');
+var myChart = echarts.init(chartDom);
+var option;
+
+option = {
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    top: '5%',
+    left: 'center'
+  },
+  color: [`#91cc75`, `#ee6666`, `#fac858`, `#5470c6`],
+  series: [
+    {
+      name: '工作状态分布',
+      type: 'pie',
+      radius: ['40%', '70%'],
+      avoidLabelOverlap: false,
+      itemStyle: {
+        borderRadius: 10,
+        borderColor: '#fff',
+        borderWidth: 2
+      },
+      label: {
+        show: false,
+        position: 'center'
+      },
+      emphasis: {
+        label: {
+          show: true,
+          fontSize: 40,
+          fontWeight: 'bold'
+        }
+      },
+      labelLine: {
+        show: false
+      },
+      data: [
+        { value: {{ index_n[0]|tojson }}, name: '正常' },
+        { value: {{ index_n[1]|tojson }}, name: '全部遮挡'},
+        { value: {{ index_n[2]|tojson }}, name: '部分遮挡'},
+        { value: {{ index_n[3]|tojson }}, name: '断路' }
+      ]
+    }
+  ]
+};
+
+option && myChart.setOption(option);
+
+</script>
+{#parallel  #}
+<script>
+var chartDom = document.getElementById('parallel');
+var myChart = echarts.init(chartDom);
+var option;
+
+// Schema:
+// date,AQIindex,PM2.5,PM10,CO,NO2,SO2
+const schema = [
+  { name: 'fz_i', index: 1, text: '负载电流' },
+  { name: 'fz_v', index: 2, text: '负载电压' },
+  { name: 'nb_i', index: 3, text: '逆变电流' },
+  { name: 'nb_v', index: 4, text: '逆变电压' },
+  { name: 'sr_i', index: 5, text: '输入电流' },
+  { name: 'sr_v', index: 6, text: '输入电压' },
+  {#{ name: '等级', index: 7, text: '等级' }#}
+];
+const CATEGORY_DIM_COUNT = 6;
+const GAP = 2;
+const BASE_LEFT = 5;
+const BASE_TOP = 10;
+// const GRID_WIDTH = 220;
+// const GRID_HEIGHT = 220;
+const GRID_WIDTH = (100 - BASE_LEFT - GAP) / CATEGORY_DIM_COUNT - GAP;
+const GRID_HEIGHT = (100 - BASE_TOP - GAP) / CATEGORY_DIM_COUNT - GAP;
+const CATEGORY_DIM = 6;
+//标记的大小
+const SYMBOL_SIZE = 4;
+function retrieveScatterData(data, dimX, dimY) {
+  let result = [];
+  for (let i = 0; i < data.length; i++) {
+    let item = [data[i][dimX], data[i][dimY]];
+    item[CATEGORY_DIM] = data[i][CATEGORY_DIM];
+    result.push(item);
+  }
+  return result;
+}
+const p=[['负载V','','','',''],
+        ['逆变I','','','',''],
+        ['逆变V','','','',''],
+        ['输入I','','','',''],
+        ['输入V','','','','']
+        ];
+const q=[['','','','',''],
+        ['','','','',''],
+        ['','','','',''],
+        ['','','','',''],
+        ['负载I','负载V','逆变I','逆变V','输入I']
+        ];
+function generateGrids() {
+  let index = 0;
+  const grid = [];
+  const xAxis = [];
+  const yAxis = [];
+  const series = [];
+  for (let i = 0; i < CATEGORY_DIM_COUNT; i++) {
+    for (let j = 0; j < CATEGORY_DIM_COUNT; j++) {
+      if (CATEGORY_DIM_COUNT - i + j >= CATEGORY_DIM_COUNT) {
+        continue;
+      }
+      grid.push({
+        left: BASE_LEFT + i * (GRID_WIDTH + GAP) + '%',
+        top: BASE_TOP + j * (GRID_HEIGHT + GAP) + '%',
+        width: GRID_WIDTH + '%',
+        height: GRID_HEIGHT + '%'
+      });
+      xAxis.push({
+        splitNumber: 3,
+        position: 'top',
+        axisLine: {
+          show: j === 0,
+          onZero: false
+        },
+        axisTick: {
+          show: j === 0,
+          inside: true
+        },
+        axisLabel: {
+          show: j === 0
+        },
+        type: 'value',
+        gridIndex: index,
+        scale: true,
+        name:p[i-1][j],
+        nameLocation:'center' ,
+        nameGap:20
+      });
+      yAxis.push({
+        splitNumber: 3,
+        position: 'right',
+        axisLine: {
+          show: i === CATEGORY_DIM_COUNT - 1,
+          onZero: false
+        },
+        axisTick: {
+          show: i === CATEGORY_DIM_COUNT - 1,
+          inside: true
+        },
+        axisLabel: {
+          show: i === CATEGORY_DIM_COUNT - 1
+        },
+        type: 'value',
+        gridIndex: index,
+        scale: true,
+        name:q[i-1][j],
+        nameLocation:'',
+        nameGap:20,
+        nameRotate: 270
+
+      });
+      series.push({
+        type: 'scatter',
+        symbolSize: SYMBOL_SIZE,
+        xAxisIndex: index,
+        yAxisIndex: index,
+        data: retrieveScatterData({{ rawData |tojson}}, i, j)
+      });
+      index++;
+    }
+  }
+  return {
+    grid,
+    xAxis,
+    yAxis,
+    series
+  };
+}
+const gridOption = generateGrids();
+option = {
+  animation: false,
+  brush: {
+    brushLink: 'all',
+    xAxisIndex: gridOption.xAxis.map(function (_, idx) {
+      return idx;
+    }),
+    yAxisIndex: gridOption.yAxis.map(function (_, idx) {
+      return idx;
+    }),
+    inBrush: {
+      opacity: 1
+    }
+  },
+  visualMap: {
+    type: 'piecewise',
+    categories: ['正常', '全部遮挡', '部分遮挡','断路'],
+    dimension: CATEGORY_DIM,
+    orient: 'horizontal',
+    top: 0,
+    x:'left',
+    inRange: {
+      color: ['#708090','#ce5c5c', '#fbc357','#8B008B']
+    },
+    outOfRange: {
+      color: '#ddd'
+    },
+    seriesIndex: gridOption.series.map(function (_, idx) {
+      return idx;
+    })
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  parallelAxis: [
+    { dim: 0, name: schema[0].text },
+    { dim: 1, name: schema[1].text },
+    { dim: 2, name: schema[2].text },
+    { dim: 3, name: schema[3].text },
+    { dim: 4, name: schema[4].text },
+    { dim: 5, name: schema[5].text },
+  ],
+  parallel: {
+    bottom: '5%',
+    left: '2%',
+    height: '30%',
+    width: '55%',
+    parallelAxisDefault: {
+      type: 'value',
+      name: 'AQI指数',
+      nameLocation: 'end',
+      nameGap: 20,
+      splitNumber: 3,
+      nameTextStyle: {
+        fontSize: 14
+      },
+      axisLine: {
+        lineStyle: {
+          color: '#555'
+        }
+      },
+      axisTick: {
+        lineStyle: {
+          color: '#555'
+        }
+      },
+      splitLine: {
+        show: false
+      },
+      axisLabel: {
+        color: '#555'
+      },
+      min: 'dataMin',
+      max:  'dataMax'
+    }
+  },
+  xAxis: gridOption.xAxis,
+  yAxis: gridOption.yAxis,
+  grid: gridOption.grid,
+  series: [
+    {
+      name: '多维坐标图',
+      type: 'parallel',
+      smooth: true,
+      lineStyle: {
+        width: 1,
+        opacity: 0.3
+      },
+      data: {{ rawData |tojson}}
+    },
+    ...gridOption.series
+  ]
+};
+
+option && myChart.setOption(option);
+
+</script>
+{# barline #}
+<script>
+var chartDom = document.getElementById('bar1');
+var myChart = echarts.init(chartDom);
+var option;
+const markColor = [`#91cc75`, `#ee6666`, `#fac858`, `#5470c6`,`#5470c6`]; // 背景色块配色
+const names = ['正常','完全遮挡','部分遮挡','断路'];
+let testData = [];
+let dic={{dic_list|tojson}};
+dic.forEach((v,idx)=>{
+    testData.push({
+        range:[dic[idx]['start'],dic[idx]['end']],
+        color:markColor[dic[idx]['label']-1],
+        name:names[dic[idx]['label']-1]
+    })
+    }
+);
+{#for(var i=0;i< dic.length;i++ ){#}
+{#    testData.push({#}
+{#        range:[dic[i]['start'],dic[i]['end']],#}
+{#        color:markColor[dic[i]['label']-1]#}
+{#    });#}
+{# }#}
+option = {
+  title: {
+    {#  text: 'Distribution of Electricity',#}
+    {#subtext: 'Fake Data'#}
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'cross'
+    }
+  },
+  {#legend:{#}
+  {#    data:['正常','全部遮挡','部分遮挡','断路'],#}
+  {#    color:[ [`#91cc75`, `#ee6666`, `#fac858`, `#5470c6`,`#5470c6`]],#}
+  {#    icon:'rect'#}
+  {#    opacity:0.56#}
+  {#  },#}
+  toolbox: {
+    show: true,
+    feature: {
+      saveAsImage: {}
+    }
+  },
+  xAxis: {
+    type: 'category',
+    boundaryGap: false,
+    // prettier-ignore
+    data : {{ times|tojson }}
+  },
+  yAxis: {
+    type: 'value',
+    axisLabel: {
+      formatter: '{value}'
+    },
+    axisPointer: {
+      snap: true
+    }
+  },
+  visualMap: {
+    show: false,
+    dimension: 0,
+    pieces: [
+      {
+        lte: 6,
+        color: 'green'
+      },
+      {
+        gt: 6,
+        lte: 8,
+        color: 'green'
+      },
+      {
+        gt: 8,
+        lte: 14,
+        color: 'green'
+      },
+      {
+        gt: 14,
+        lte: 17,
+        color: 'green'
+      },
+      {
+        gt: 17,
+        color: 'green'
+      }
+    ]
+  },
+  series: [
+    {
+      type: 'line',
+      smooth: true,
+      data: {{ pre_proba|tojson }},
+      markArea: {
+        itemStyle: {
+          color: 'rgba(255, 173, 177, 0.4)'
+        },
+          legend:['正常','完全遮挡','部分遮挡','断路'],
+          data: testData.map(cfg =>
+          [ // 包含色块在x轴起止点的配置数组
+            { name:cfg.name,
+              xAxis: cfg.range[0],
+              itemStyle: { // 色块配置
+                color: cfg.color,
+                opacity: 0.56
+              }
+            },
+            {
+              xAxis: cfg.range[1]
+            }
+          ]
+        )
+       }
+    }
+  ]
+};
+
+option && myChart.setOption(option);
+
+</script>
+{#<script>#}
+{#var chartDom = document.getElementById('bar2');#}
+{#var myChart = echarts.init(chartDom);#}
+{#var option;#}
+{##}
+{#option = {#}
+{#  xAxis: {#}
+{#    type: 'category',#}
+{#    boundaryGap: false,#}
+{#    data : {{ times|tojson }}#}
+{#  },#}
+{#  yAxis: {#}
+{#    type: 'value'#}
+{#  },#}
+{#  series: [#}
+{#    {#}
+{#      name: '',#}
+{#      type: 'line',#}
+{#      smooth: true,#}
+{#      // prettier-ignore#}
+{#      data: {{ pre_proba|tojson }},#}
+{#      markArea: {#}
+{#        data: []#}
+{#      },#}
+{#      markLine: {#}
+{#        lineStyle: {#}
+{#          color: 'rgba(50, 163, 182, 0.16)',#}
+{#          width: 2#}
+{#        },#}
+{#        symbolSize: 0,#}
+{#        //当前为#}
+{#        data: []#}
+{#      }#}
+{#    }#}
+{#  ]#}
+{# };#}
+{#//当前为需要标注的对象数组#}
+{#const peak = ['07:30', '20:00'];#}
+{#//计算每个线段X轴百分比#}
+{#const itemRatio = 80 / (option.xAxis.data.length - 1);#}
+{#peak.map((peak) => {#}
+{#  //当前所选位置的索引#}
+{#  let peakIndex = option.xAxis.data.indexOf(peak);#}
+{#  //设置起始位置，要把开始的百分之10加上#}
+{#  let xStart = 10 + itemRatio * peakIndex;#}
+{#  option.series[0].markArea.data.push([#}
+{#    {#}
+{#      name: '',#}
+{#      //减掉长度的一半为中心点左侧#}
+{#      x: xStart - itemRatio / 2 + '%',#}
+{#      itemStyle: {#}
+{#        color: 'rgba(50, 163, 182, 0.16)',#}
+{#        borderColor: '#00A5C4',#}
+{#        borderWidth: 0,#}
+{#        borderType: 'dotted'#}
+{#      }#}
+{#    },#}
+{#    {#}
+{#      //加上长度的一半为中心点右侧#}
+{#      x: xStart + itemRatio / 2 + '%'#}
+{#    }#}
+{#  ]);#}
+{#  //当前为 侧边虚线数据#}
+{#  option.series[0].markLine.data.push(#}
+{#    [#}
+{#      {#}
+{#        name: '',#}
+{#        //减掉长度的一半为中心点左侧#}
+{#        x: xStart - itemRatio / 2 + '%',#}
+{#        itemStyle: {#}
+{#          color: 'rgba(50, 163, 182, 0.16)',#}
+{#          borderColor: '#00A5C4',#}
+{#          borderWidth: 20,#}
+{#          borderType: 'dotted'#}
+{#        },#}
+{#        y: '90%'#}
+{#      },#}
+{#      {#}
+{#        //加上长度的一半为中心点右侧#}
+{#        x: xStart - itemRatio / 2 + '%',#}
+{#        y: '8%'#}
+{#      }#}
+{#    ],#}
+{#    [#}
+{#      {#}
+{#        name: '',#}
+{#        //减掉长度的一半为中心点左侧#}
+{#        x: xStart + itemRatio / 2 + '%',#}
+{#        itemStyle: {#}
+{#          color: 'rgba(50, 163, 182, 0.16)',#}
+{#          borderColor: '#00A5C4',#}
+{#          borderWidth: 20,#}
+{#          borderType: 'dotted'#}
+{#        },#}
+{#        y: '90%'#}
+{#      },#}
+{#      {#}
+{#        //加上长度的一半为中心点右侧#}
+{#        x: xStart + itemRatio / 2 + '%',#}
+{#        y: '8%'#}
+{#      }#}
+{#    ]#}
+{#  );#}
+{# });#}
+{##}
+{#option && myChart.setOption(option);#}
+{##}
+{#</script>#}
+{#<script>#}
+{#// 生成测试数据，时间为01:00~23:00，温度为22~27的随机数值#}
+{#var chartDom = document.getElementById('bar3');#}
+{#var myChart = echarts.init(chartDom);#}
+{#var option;#}
+{##}
+{#let testData = [];#}
+{#let times = {{ times|tojson }};#}
+{#let proba = {{ pre_proba|tojson }};#}
+{#let i=0;#}
+{#while(i< times.length ) {#}
+{#  testData.push({#}
+{#    time: times[i],#}
+{#    temperature: proba[i]#}
+{#  });#}
+{# }#}
+{##}
+{#let xData = testData.map(item => item.time); // x轴数据#}
+{#let chartData = testData.map(item => item.temperature); // 折线数据#}
+{#// 在x轴数据、折线数据列表开头插入坐标原点的节点#}
+{#xData.unshift(``); // 此节点没有标签#}
+{#chartData.unshift({ "value": 0, "symbol": "none" }) // 此节点不显示图标#}
+{##}
+{#const timeSpan = [`07:00`, `09:00`, `12:00`, `16:00`, `18:00`]; // 时间段切分点#}
+{#const markColor = [`#67e6d3`, `#53b9ff`, `#7387f3`, `#e133a4`, `#fab93e`, `#ffcd37`]; // 背景色块配色#}
+{#// 时间段对应的背景色块配置列表#}
+{#let markAreaCfg = [];#}
+{#timeSpan.forEach((time, idx) => {#}
+{#  let startTime = idx === 0 ? xData[idx] : time;#}
+{#  let endTime = idx === xData.length - 1 ? xData[idx] : timeSpan[idx + 1]#}
+{#  // 色块在x轴的范围，色块颜色#}
+{#  markAreaCfg.push({#}
+{#    range: [startTime, endTime],#}
+{#    color: markColor[idx]#}
+{#  })#}
+{# })#}
+{##}
+{#option = {#}
+{#  "grid": { // 设置图表距离容器各个边的间距#}
+{#    "left": 64,#}
+{#    "right": 172,#}
+{#    "top": '32%',#}
+{#    "bottom": '36%',#}
+{#    "containLabel": true // 将标签算作图表的一部分#}
+{#  },#}
+{#  "xAxis": [ // x轴配置#}
+{#    {#}
+{#      "name": "时间段", // x轴名称#}
+{#      "nameTextStyle": { // x轴名称样式#}
+{#        "color": "#666",#}
+{#        "fontWeight": 400,#}
+{#        "fontSize": 30,#}
+{#        "padding": [ 0, 88, 20, 32 ]#}
+{#      },#}
+{#      "type": "category",#}
+{#      "data": xData,#}
+{#      "boundaryGap": false, // 消除x轴左右的默认留空，使折线两端节点与x轴边界对齐#}
+{#      "axisLine": { // x轴轴线样式#}
+{#        "lineStyle": {#}
+{#          "width": 4,#}
+{#          "color": "rgba(0, 0, 0, 0.36)"#}
+{#        }#}
+{#      },#}
+{#      "axisLabel": { // x轴标签样式#}
+{#        "color": "#aaa",#}
+{#        "fontWeight": 400,#}
+{#        "fontSize": 30,#}
+{#        "padding": [ 16, 0, 0, 0 ]#}
+{#      },#}
+{#      "axisTick": { // x轴刻度样式#}
+{#        "show": false // 不显示刻度#}
+{#      }#}
+{#    }#}
+{#  ],#}
+{#  "yAxis": [ // y轴配置#}
+{#    {#}
+{#      "name": "温度", // y轴名称#}
+{#      "nameTextStyle": { // y轴名称样式#}
+{#        "color": "#666",#}
+{#        "fontWeight": 400,#}
+{#        "fontSize": 30,#}
+{#        "padding": [ 0, 88, 20, 0 ]#}
+{#      },#}
+{#      "axisLine": { // y轴轴线样式#}
+{#        "show": false // 不显示轴线#}
+{#      },#}
+{#      "axisLabel": { // y轴标签样式#}
+{#        "color": "#aaa",#}
+{#        "fontWeight": 400,#}
+{#        "fontSize": 30,#}
+{#        "padding": [ 4, 8, 0, 0 ]#}
+{#      },#}
+{#      "axisTick": { // y轴刻度样式#}
+{#        "show": false // 不显示刻度#}
+{#      },#}
+{#      // y轴分隔线：与y轴垂直，与刻度对应的准线#}
+{#      //（这里x轴数据为类目值所以默认不显示分隔线，y轴数据为数值所以默认显示分隔线）#}
+{#      "splitNumber": 3, // 分隔数量，预估值，实际分隔数可能与设置值有差异#}
+{#      "splitLine": { // 分隔线样式#}
+{#        "lineStyle": {#}
+{#          "width": 4,#}
+{#          "color": "rgba(0, 0, 0, 0.16)"#}
+{#        }#}
+{#      },#}
+{#      "type": "value"#}
+{#    }#}
+{#  ],#}
+{#  "color": `#ffefac`, // 图线节点图标的默认颜色#}
+{#  "series": [#}
+{#    {#}
+{#      "name": "一天的气温变化",#}
+{#      "type": "line",#}
+{#      "smooth": true, // 显示为光滑的曲线#}
+{#      "data": chartData,#}
+{#      // 这里如果要将折线节点设置为自定义图标，需指定图标路径#}
+{#      // "symbol": "image://自定义图标路径",#}
+{#      "symbol": "pin", // echarts自带的节点样式，参见配置项手册#}
+{#      "symbolSize": 36, // 设置节点显示大小#}
+{#      "lineStyle": { // 图线样式#}
+{#        "color": "rgba(255, 255, 255, 0.8)",#}
+{#        "width": 4#}
+{#      },#}
+{#      "areaStyle": { // 图线与x轴之间面积的填充配置#}
+{#        "color": { // 渐变色配置#}
+{#          "x": 0,#}
+{#          "y": 0,#}
+{#          "x2": 0,#}
+{#          "y2": 1,#}
+{#          "type": "linear",#}
+{#          "global": false,#}
+{#          "colorStops": [#}
+{#            {#}
+{#              "offset": 0,#}
+{#              "color": "rgba(255, 255, 255, 0.56)"#}
+{#            },#}
+{#            {#}
+{#              "offset": 1,#}
+{#              "color": "rgba(255, 255, 255, 0.01)"#}
+{#            }#}
+{#          ]#}
+{#        }#}
+{#      },#}
+{#      "markArea": { // 背景色块配置#}
+{#        "silent": false,#}
+{#        "data": markAreaCfg.map(cfg =>#}
+{#          [ // 包含色块在x轴起止点的配置数组#}
+{#            {#}
+{#              "xAxis": cfg.range[0],#}
+{#              "itemStyle": { // 色块配置#}
+{#                "color": cfg.color,#}
+{#                "opacity": 0.56#}
+{#              }#}
+{#            },#}
+{#            {#}
+{#              "xAxis": cfg.range[1]#}
+{#            }#}
+{#          ]#}
+{#        )#}
+{#      }#}
+{#    }#}
+{#  ]#}
+{# }#}
+{#option && myChart.setOption(option);#}
+{#</script>#}
+  <!-- container-scroller -->
+  <!-- base:js -->
+
+  <script src="static/js/vendor.bundle.base.js"></script>
+
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="static/js/off-canvas.js"></script>
+  <script src="static/js/hoverable-collapse.js"></script>
+  <script src="static/js/template.js"></script>
+  <script src="static/js/settings.js"></script>
+  <script src="static/js/todolist.js"></script>
+  <script src="static/js/linechart.js"></script>
+  <!-- endinject -->
+</body>
+
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="static/js/Chart.min.js"></script>
+    <script src="static/js/chart.js"></script>
+    <script src="static/js/echarts.min.js"></script>
+    <script src="static/js/linechart.js"></script>
+  <title>dtw上传</title>
+  <!-- base:css -->
+  <link rel="stylesheet" href="static/css/typicons.css">
+  <link rel="stylesheet" href="static/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="static/css/style.css">
+  <!-- endinject -->
+
+
+
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center" >
+          <div style="width: 157px;height:42px;padding-right: 107px" class="navbar-brand brand-logo"  ><img src="static/picture/logo-mini.svg" alt="logo" ></div>
+{#          <a class="navbar-brand brand-logo-mini" href=""><img src="static/picture/logo-mini.svg" alt="logo"></a>#}
+          <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button" data-toggle="minimize">
+            <span class="typcn typcn-th-menu"></span>
+          </button>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+          <ul class="navbar-nav mr-lg-2">
+{#            <li class="nav-item  d-none d-lg-flex">#}
+{#              <a class="nav-link" href="#">#}
+{#                Calendar#}
+{#              </a>#}
+{#            </li>#}
+            <li class="nav-item  d-none d-lg-flex">
+              <a class="nav-link active" href="#">
+                数据显示
+              </a>
+            </li>
+            <li class="nav-item  d-none d-lg-flex">
+              <a class="nav-link" href="/my_home">
+                我的中心
+              </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item d-none d-lg-flex  mr-2">
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
+                <i class="typcn typcn-user-outline mr-0"></i>
+                <span class="nav-profile-name">{{ name }}</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                <a class="dropdown-item" href="/my_home">
+                <i class="typcn typcn-cog text-primary"></i>
+                我的中心
+                </a>
+                <a class="dropdown-item" href="/loginOut">
+                <i class="typcn typcn-power text-primary"></i>
+                退出登录
+                </a>
+              </div>
+            </li>
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="typcn typcn-th-menu"></span>
+          </button>
+        </div>
+      </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_settings-panel.html -->
+        <div class="theme-setting-wrapper">
+          <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+          <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">导航栏颜色</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+              <div class="img-ss rounded-circle bg-light border mr-3"></div>
+              浅色
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+              <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+              深色
+            </div>
+            <p class="settings-heading mt-2">菜单栏颜色</p>
+            <div class="color-tiles mx-0 px-4">
+              <div class="tiles success"></div>
+              <div class="tiles warning"></div>
+              <div class="tiles danger"></div>
+              <div class="tiles primary"></div>
+              <div class="tiles info"></div>
+              <div class="tiles dark"></div>
+              <div class="tiles default border"></div>
+            </div>
+          </div>
+        </div>
+        <!-- partial -->
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <div class="d-flex sidebar-profile">
+              <div class="sidebar-profile-image">
+                <img src="static/picture/face29.png" alt="image">
+                <span class="sidebar-status-indicator"></span>
+              </div>
+              <div class="sidebar-profile-name">
+                <p class="sidebar-name">
+                  {{ name }}
+                </p>
+                <p class="sidebar-designation">
+                  Welcome
+                </p>
+              </div>
+            </div>
+            <p class="sidebar-menu-title">导航栏</p>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/home">
+              <i class="typcn typcn-device-desktop menu-icon"></i>
+              <span class="menu-title">首页 <span class="badge badge-primary ml-3">常用</span></span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/fileUpLoad">
+              <i class="typcn typcn-briefcase menu-icon"></i>
+              <span class="menu-title">初步可视化 </span>
+            </a>
+          </li>
+         {# <li class="nav-item">
+            <a class="nav-link"  data-toggle="collapse" href="/fileUpLoad" aria-expanded="false" aria-controls="ui-basic">
+              <i class="typcn typcn-briefcase menu-icon"></i>
+                <span class="menu-title">文件上传</span>
+              <i class="typcn typcn-chevron-right menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="fileUpLoad.html">Buttons</a></li>
+                <li class="nav-item"> <a class="nav-link" href="dropdowns.html">Dropdowns</a></li>
+                <li class="nav-item"> <a class="nav-link" href="typography.html">Typography</a></li>
+              </ul>
+            </div>
+          </li>#}
+{# 训练模型 #}
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="typcn typcn-chart-pie-outline menu-icon"></i>
+              <span class="menu-title">应用模型</span>
+              <i class="typcn typcn-chevron-right menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="/data_ana">模型介绍</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dtw_upload">DTW+KNN模型</a></li>
+                <li class="nav-item"><a class="nav-link" href="/FCN_upload">FCN模型</a></li>
+{#                <li class="nav-item"> <a class="nav-link" href="buttons.html">Buttons</a></li>#}
+{#                <li class="nav-item"> <a class="nav-link" href="dropdowns.html">Dropdowns</a></li>#}
+{#                <li class="nav-item"> <a class="nav-link" href="typography.html">Typography</a></li>#}
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/compare_upload">
+              <i class="typcn typcn-globe-outline menu-icon"></i>
+              <span class="menu-title">分类对比</span>
+{#              <i class="menu-arrow"></i>#}
+            </a>
+{#            <div class="collapse" id="error">#}
+{#              <ul class="nav flex-column sub-menu">#}
+{#                <li class="nav-item"> <a class="nav-link" href="error-404.html"> 404 </a></li>#}
+{#                <li class="nav-item"> <a class="nav-link" href="error-500.html"> 500 </a></li>#}
+{#              </ul>#}
+{#            </div>#}
+          </li>
+
+
+{# 历史文件 #}
+          <li class="nav-item">
+            <a class="nav-link" href="/history">
+              <i class="typcn typcn-document-text menu-icon"></i>
+              <span class="menu-title">历史文件</span>
+            </a>
+          </li>
+{#我的中心#}
+
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="typcn typcn-user-add-outline menu-icon"></i>
+              <span class="menu-title">我的中心</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/my_home"> 我的中心 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="/loginOut"> 退出登录 </a></li>
+              </ul>
+            </div>
+          </li>
+
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">#}
+{#              <i class="typcn typcn-th-small-outline menu-icon"></i>#}
+{#              <span class="menu-title">Tables</span>#}
+{#              <i class="menu-arrow"></i>#}
+{#            </a>#}
+{#            <div class="collapse" id="tables">#}
+{#              <ul class="nav flex-column sub-menu">#}
+{#                <li class="nav-item"> <a class="nav-link" href="basic-table.html">Basic table</a></li>#}
+{#              </ul>#}
+{#            </div>#}
+{#          </li>#}
+{#          <li class="nav-item">#}
+{#            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">#}
+{#              <i class="typcn typcn-compass menu-icon"></i>#}
+{#              <span class="menu-title">Icons</span>#}
+{#              <i class="menu-arrow"></i>#}
+{#            </a>#}
+{#            <div class="collapse" id="icons">#}
+{#              <ul class="nav flex-column sub-menu">#}
+{#                <li class="nav-item"> <a class="nav-link" href="mdi.html">Mdi icons</a></li>#}
+{#              </ul>#}
+{#            </div>#}
+{#          </li>#}
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+              <div class="col-sm-6">
+              <h3 class="mb-0 font-weight-bold"> DTW+KNN模型预测</h3>
+              <p>光伏发电时间序列数据分类系统</p>
+              </div>
+          </div>
+          <!--上传文件-->
+          <div class="row">
+              {# 居中 #}
+            <div class="col-md-4 grid-margin stretch-card" style="left: 0;right: 0; margin: auto;">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">文件上传</h4>
+                  <p class="card-description">请选择您要处理的数据文件 </p>
+                  <div class="template-demo">
+                   <form action ="/dtw_upload" method = "post" enctype="multipart/form-data">
+{#                       <button type="button" class="btn btn-info btn-lg btn-block">点击上传
+                           <i class="typcn typcn-th-menu float-right"></i>
+                       </button>#}
+                       <input type = "file"  class="btn btn-info btn-lg btn-block" name="file" >
+{#                       <button type="submit" class="btn btn-dark btn-lg btn-block">上传文件
+                       </button>#}
+                       <input type = "submit" class="btn btn-dark btn-lg btn-block">
+                       {#<button type="button" name = "file" class="btn btn-info btn-lg btn-block">选择文件
+                        <i class="typcn typcn-th-menu float-right"></i>
+                       </button>
+                       <button type="submit" class="btn btn-dark btn-lg btn-block">上传文件
+                       </button>#}
+                   </form>
+
+                  </div>
+                  <p class="card-description" style="color: #0569ff;padding-top: 10px"> <i>*上传Excel表格格式：包括7列数据，依次为时间，负载电流，负载电压，逆变电流，逆变电压，输入电流，输入电压</i></p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+           <!--图-->
+        </div>
+
+
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+{#        <footer class="footer">#}
+{#            <div class="d-sm-flex justify-content-center justify-content-sm-between">#}
+{#              <span class="text-center text-sm-left d-block d-sm-inline-block">Copyright © <a href="javascript:;" target="_blank">bootstrapdash.com</a> 2020</span>#}
+{##}
+{#            </div>#}
+{#          </footer>#}
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- base:js -->
+
+  <script src="static/js/vendor.bundle.base.js"></script>
+
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="static/js/off-canvas.js"></script>
+  <script src="static/js/hoverable-collapse.js"></script>
+  <script src="static/js/template.js"></script>
+  <script src="static/js/settings.js"></script>
+  <script src="static/js/todolist.js"></script>
+  <script src="static/js/linechart.js"></script>
+  <!-- endinject -->
+
+</body>
+
+</html>
